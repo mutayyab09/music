@@ -90,6 +90,15 @@
     scroll-behavior: smooth;
   }
 }
+.nav-link.active {
+  background-color: #2c3e50; 
+  color: #ffffff;
+  font-weight: bold;
+}
+.nav-link:hover {
+  background-color: #1f2e40;
+  color: #ffffff;
+}
 
 body {
   margin: 0;
