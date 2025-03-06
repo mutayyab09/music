@@ -10867,9 +10867,12 @@ body {
 #layoutAuthentication #layoutAuthentication_footer {
   min-width: 0;
 }
-
+#datatablesSimple{
+  width: 100%;
+}
 #layoutSidenav {
   display: flex;
+  width:100%;
 }
 #layoutSidenav #layoutSidenav_nav {
   flex-basis: 225px;
