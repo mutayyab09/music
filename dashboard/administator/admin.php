@@ -29,7 +29,7 @@ try {
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
+                                    
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created At</th>
@@ -38,7 +38,7 @@ try {
                                 <tbody>
                                     <?php foreach ($users as $user) : ?>
                                         <tr>
-                                            <td><?= htmlspecialchars($user['id']) ?></td>
+                                     
                                             <td><?= htmlspecialchars($user['username']) ?></td>
                                             <td><?= htmlspecialchars($user['email']) ?></td>
                                             <td><?= htmlspecialchars($user['created_at']) ?></td>
