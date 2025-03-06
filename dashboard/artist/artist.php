@@ -56,8 +56,9 @@ try {
                                             <th>Claim Type</th>
                                             <th>YouTube Channel</th>
                                             <th>MCN Status</th>
+                                            <th>Status</th>
                                         </tr>
-                                        </tr>
+                                    
                                     </tfoot>
                                     <tbody>
                                     <?php foreach ($tracks as $track) : ?>
@@ -72,6 +73,16 @@ try {
                     <td><?= htmlspecialchars($track['claim_type']) ?></td>
                     <td><?= htmlspecialchars($track['youtube_channel']) ?></td>
                     <td><?= htmlspecialchars($track['mcn_status']) ?></td> 
+                    <td>
+                                                <?php 
+                                                    switch ($track['status']) {
+                                                        case 0: echo "Declined"; break;
+                                                        case 1: echo "In Progress"; break;
+                                                        case 2: echo "Accepted"; break;
+                                                        default: echo "Unknown"; 
+                                                    }
+                                                ?>
+                                            </td>
                 </tr>
             <?php endforeach; ?>
                                     </tbody>

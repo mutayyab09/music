@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         // ✅ Insert track with new fields
         $sql = "INSERT INTO tracks (track_name, album_art, tracklink, genre, release_date, video_url, claim_type, youtube_channel, mcn_status, user_id, created_at, updated_at, status, deleted_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 0, NULL)";
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, NULL)";
         
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$track_name, $album_art, $tracklink, $genre, $release_date, $video_url, $claim_type, $youtube_channel, $mcn_status, $user_id]);
