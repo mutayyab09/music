@@ -84,7 +84,6 @@ div.dt-length {
 </style>
 
 <div id="layoutSidenav">
-    <?php include("../includes/sidebar.php"); ?> 
        <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
@@ -97,6 +96,7 @@ div.dt-length {
                                         <tr>
                                         <th>Track Name</th>
                                             <th>Album Art</th>
+                                            <th>Album Cover</th>
                                             <th>Track Link</th>
                                             <th>Genre</th>
                                             <th>Release Date</th>
@@ -104,29 +104,18 @@ div.dt-length {
                                             <th>Claim Type</th>
                                             <th>YouTube Channel</th>
                                             <th>MCN Status</th>
+                                            <th>Status</th>
                                         </tr>
-                                        </tr>
+                                    
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                        <th>Track Name</th>
-                                            <th>Album Art</th>
-                                            <th>Track Link</th>
-                                            <th>Genre</th>
-                                            <th>Release Date</th>
-                                            <th>YouTube Video</th>
-                                            <th>Claim Type</th>
-                                            <th>YouTube Channel</th>
-                                            <th>MCN Status</th>
-                                        </tr>
-                                        </tr>
-                                    </tfoot>
+                                    
                                     <tbody>
                                     <?php foreach ($tracks as $track) : ?>
                 <tr>
                 
                     <td><?= htmlspecialchars($track['track_name']) ?></td>
                     <td><?= htmlspecialchars($track['album_art']) ?></td>
+                    <td><img src="<?= htmlspecialchars($track['album_cover']) ?>" alt="Album Cover" width="100"></td>
                     <td><?= htmlspecialchars($track['tracklink']) ?></td>
                     <td><?= htmlspecialchars($track['genre']) ?></td>
                     <td><?= htmlspecialchars($track['release_date']) ?></td>
@@ -134,6 +123,13 @@ div.dt-length {
                     <td><?= htmlspecialchars($track['claim_type']) ?></td>
                     <td><?= htmlspecialchars($track['youtube_channel']) ?></td>
                     <td><?= htmlspecialchars($track['mcn_status']) ?></td> 
+                    <td><?php switch ($track['status']) { case 0: echo "Declined"; break;
+                                                        case 1: echo "In Progress"; break;
+                                                        case 2: echo "Accepted"; break;
+                                                        default: echo "Unknown"; 
+                                                    }
+                                                ?>
+                                            </td>
                 </tr>
             <?php endforeach; ?>
                                     </tbody>

@@ -74,8 +74,7 @@ div.dt-length {
 
 
 <div id="layoutSidenav">
-    <?php include("../includes/sidebar.php"); ?> <!-- Sidebar Include -->
-
+]
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">

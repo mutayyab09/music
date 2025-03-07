@@ -79,7 +79,6 @@ div.dt-length {
 </style>
 
 <div id="layoutSidenav">
-    <?php include("../includes/sidebar.php"); ?> 
        <div id="layoutSidenav_content">
         <main>
             
@@ -92,7 +91,6 @@ div.dt-length {
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created At</th>
@@ -101,7 +99,6 @@ div.dt-length {
                                 <tbody>
                                     <?php foreach ($users as $user) : ?>
                                         <tr>
-                                            <td><?= htmlspecialchars($user['id']) ?></td>
                                             <td><?= htmlspecialchars($user['username']) ?></td>
                                             <td><?= htmlspecialchars($user['email']) ?></td>
                                             <td><?= htmlspecialchars($user['created_at']) ?></td>
