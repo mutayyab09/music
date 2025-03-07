@@ -83,7 +83,7 @@ div.dt-length {
 
                 <div class="container mt-5">
         <h2>Welcome Administator</h2>
-        <div class="container-fluid px-4">
+        <!-- <div class="container-fluid px-4">
                         
                         </div>
                         <div class="card mb-4">
@@ -121,7 +121,7 @@ div.dt-length {
                             </div>
                         </div>
                     </div>
-    </div>
+    </div> -->
                
             </div>
         </main>
