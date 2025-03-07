@@ -115,6 +115,73 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<style>
+    div#layoutSidenav_content {
+    display: flex;
+    justify-content: center !important;
+}
+    div.container-fluid.px-4 {
+    max-width: 500px;
+    width: 100%;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+    .form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #555;
+    font-weight: 600;
+}
+
+.form-control {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.invalid-feedback {
+    color: #e74c3c;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        margin-bottom: 15px;
+    }
+}
+</style>
+
  <div id="layoutSidenav">
     <?php include("../includes/sidebar.php"); ?> <!-- Sidebar Include -->
 
@@ -122,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <main>
             <div class="container-fluid px-4">
    
-        <h2>Creata Admin</h2>
+        <h2>Create Admin</h2>
      
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
