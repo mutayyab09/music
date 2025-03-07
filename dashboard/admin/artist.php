@@ -22,7 +22,7 @@ try {
 }
 ?>
 
-<style>
+ <style>
 div.container.mt-5 {
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -60,6 +60,12 @@ h2 {
 }
 #datatablesSimple tbody tr:hover {
     background-color: #e9f5ff;
+}
+div.dt-length {
+    gap: 20px;
+    display: flex;
+
+    align-items: center;
 }
 @media (max-width: 768px) {
     #datatablesSimple th, #datatablesSimple td {

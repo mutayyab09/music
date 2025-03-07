@@ -53,6 +53,36 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
+<style>
+    div.container-fluid.px-4.pt-5 {
+    max-width: 600px;
+    width: 100%;
+    padding: 2rem;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    margin-top: -110px;
+}
+
+.btn-primary:hover {
+    background: #0056b3;
+}
+
+
+</style>
+
 <div id="layoutSidenav">
     <?php include("../includes/sidebar.php"); ?> 
 
