@@ -1,4 +1,4 @@
-<?php include("../includes/header.php"); 
+<?php
 // Include config file
 include("../.././config.php");
 
@@ -115,93 +115,68 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 ?>
 
-<style>
-    div#layoutSidenav_content {
-    display: flex;
-    justify-content: center !important;
-}
-    div.container-fluid.px-4 {
-    max-width: 500px;
-    width: 100%;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-    .form-group {
-    margin-bottom: 20px;
-}
+ 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body{ font: 14px sans-serif; }
+        .wrapper{ width: 360px; padding: 20px; }
+        body.signup-body {
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 600;
-}
+        .signup-wrapper {
+            max-width: 600px;
+            width: 100%;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
+        .signup-wrapper h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
 
-.form-control:focus {
-    border-color: #007bff;
-    outline: none;
-}
+        .signup-wrapper .form-group {
+            margin-bottom: 1rem;
+        }
 
-.invalid-feedback {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: 5px;
-}
+        .signup-wrapper .btn-primary {
+            width: 100%;
+        }
 
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.btn-primary:hover {
-    background: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .form-group {
-        margin-bottom: 15px;
-    }
-}
-</style>
-
- <div id="layoutSidenav">
-    <?php include("../includes/sidebar.php"); ?> <!-- Sidebar Include -->
-
-    <div id="layoutSidenav_content">
-        <main>
-            <div class="container-fluid px-4">
-   
-        <h2>Create Admin</h2>
-     
+        .signup-wrapper p {
+            text-align: center;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body class="signup-body">
+    <div class="signup-wrapper">
+        <h2>Sign Up</h2>
+        <p>Please fill this form to create an account.</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div> 
+            </div>
             <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-    <span class="invalid-feedback"><?php echo $email_err; ?></span>
-</div>   
+                <label>Email</label>
+                <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                <span class="invalid-feedback"><?php echo $email_err; ?></span>
+            </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
@@ -212,17 +187,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
-
             <div class="form-group">
                 <input type="submit" class="btn btn-primary" value="Submit">
-                <!-- <input type="reset" class="btn btn-secondary ml-2" value="Reset"> -->
             </div>
-       
+            <p>Already have an account? <a href="../../index.php">Login here</a>.</p>
         </form>
-    </div>  
-               
-            
-        </main>
-
     </div>
-</div>
+</body>
+</html>

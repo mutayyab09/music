@@ -4,6 +4,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
+
 <?php
 include("../.././config.php");
 
@@ -21,7 +22,7 @@ try {
 }
 ?>
 
-<style>
+ <style>
 div.container.mt-5 {
     background-color: #f9f9f9;
     border-radius: 10px;
@@ -82,17 +83,15 @@ div.dt-length {
     <?php include("../includes/sidebar.php"); ?> 
        <div id="layoutSidenav_content">
         <main>
-            
-        <div class="container-fluid px-4">
+            <div class="container-fluid px-4">
                 <div class="container mt-5">
-                    <h2>Admins</h2>
+                    <h2>Artists</h2>
                     <div class="container-fluid px-4"></div>
-                    <div class="card mb-4">
-                        <div class="card-body">
+                    <div class="card-body">
                             <table id="datatablesSimple">
                                 <thead>
                                     <tr>
-                                        <!-- <th>ID</th> -->
+                                        <th>ID</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Created At</th>
@@ -101,7 +100,7 @@ div.dt-length {
                                 <tbody>
                                     <?php foreach ($users as $user) : ?>
                                         <tr>
-                                      
+                                            <td><?= htmlspecialchars($user['id']) ?></td>
                                             <td><?= htmlspecialchars($user['username']) ?></td>
                                             <td><?= htmlspecialchars($user['email']) ?></td>
                                             <td><?= htmlspecialchars($user['created_at']) ?></td>
@@ -110,11 +109,10 @@ div.dt-length {
                                 </tbody>
                             </table>
                         </div>
-                    </div>
+ 
                 </div>
             </div>
         </main>
-        <?php //include("../includes/footer.php"); ?>
     </div>
 </div>
 <script>

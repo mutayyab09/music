@@ -111,11 +111,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <style>
         body{ font: 14px sans-serif; }
         .wrapper{ width: 360px; padding: 20px; }
+        body.login-body {
+            background: #f8f9fa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-wrapper {
+            max-width: 500px;
+            width: 100%;
+            padding: 2rem;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-wrapper h2 {
+            text-align: center;
+            margin-bottom: 1rem;
+        }
+
+        .login-wrapper .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .login-wrapper .btn-primary {
+            width: 100%;
+        }
+
+        .login-wrapper p {
+            text-align: center;
+            margin-top: 1rem;
+        }
     </style>
 </head>
-<body>
-    <div class="wrapper">
-        <h2>Login</h2>
+<body class="login-body">
+    <div class="login-wrapper">
+        <h2>Music Hub Login</h2>
         <p>Please fill in your credentials to login.</p>
 
         <?php 
