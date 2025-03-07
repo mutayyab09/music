@@ -27,20 +27,14 @@ session_start();
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <!-- <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-                </div> -->
+        
             </form>
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#!">Settings</a></li>
-                        <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="../../logout.php">Logout</a></li>
+                       <li><a class="dropdown-item" href="../../logout.php">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -50,30 +44,70 @@ session_start();
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
                     <div class="sb-sidenav-menu">
                     <div class="nav">
-<?php if(isset($_SESSION["role"]) && $_SESSION["role"] == 0): ?>
-    <a class="nav-link" href="../../dashboard/administator/register.php">
-        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-        Create New Admin
-    </a>
+                    <?php if(isset($_SESSION["role"]) && ($_SESSION["role"] == 0 || $_SESSION["role"] == 1)): ?>
     <a class="nav-link" href="../../dashboard/administator/admin.php">
-        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
         All Admin
+   
     </a>
     <a class="nav-link" href="../../dashboard/administator/artist.php">
-        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-        All Artist
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        All Artists
+    </a>
+    <a class="nav-link" href="../../dashboard/administator/track.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        All Tracks
+    </a>
+    <a class="nav-link" href="../../dashboard/administator/inprogress.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        Inprogress Tracks
+    </a>
+    <a class="nav-link" href="../../dashboard/administator/approved.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        Approved Tracks
+    </a>
+    <a class="nav-link" href="../../dashboard/administator/declined.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        Declined Tracks
     </a>
 <?php endif; ?>
 
-<?php if(isset($_SESSION["role"]) && $_SESSION["role"] == 1): ?>
-    <a class="nav-link" href="../../dashboard/admin/artist.php">
-        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-        All Artist
+
+<?php if(isset($_SESSION["role"]) && $_SESSION["role"] == 0): ?>
+    <a class="nav-link" href="../../dashboard/administator/register.php">
+    Create New Admin
+    </a>
+<?php endif; ?>
+
+<?php if(isset($_SESSION["role"]) && $_SESSION["role"] == 2): ?>
+    <a class="nav-link" href="../../dashboard/artist/index.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        Add New Track
+    </a>
+    <a class="nav-link" href="../../dashboard/artist/artist.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        All Tracks
     </a>
 <?php endif; ?>
 
 
-    <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#tracksManagement" aria-expanded="false" aria-controls="tracksManagement">
+    <!-- <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#tracksManagement" aria-expanded="false" aria-controls="tracksManagement">
         <div class="sb-nav-link-icon"><i class="fas fa-music"></i></div>
         Tracks Management
         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -82,9 +116,9 @@ session_start();
         <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="../../dashboard/artist/artist.php">All Tracks</a>
             <a class="nav-link" href="../../dashboard/artist/index.php">Add New Tracks</a>
-            <!-- <a class="nav-link" href="pendingtracks.php">Pending Approvals</a>
+            <a class="nav-link" href="pendingtracks.php">Pending Approvals</a>
             <a class="nav-link" href="approved-tracks.html">Approved Tracks</a>
-            <a class="nav-link" href="rejected-tracks.html">Rejected Tracks</a> -->
+            <a class="nav-link" href="rejected-tracks.html">Rejected Tracks</a>
         </nav>
     </div>
     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#artistManagement" aria-expanded="false" aria-controls="artistManagement">
@@ -101,7 +135,7 @@ session_start();
         </nav>
     </div>
 
-    <!-- Payments & Earnings -->
+  
     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#paymentsEarnings" aria-expanded="false" aria-controls="paymentsEarnings">
         <div class="sb-nav-link-icon"><i class="fas fa-dollar-sign"></i></div>
         Payments & Earnings
@@ -115,7 +149,7 @@ session_start();
         </nav>
     </div>
 
-    <!-- Analytics & Reports -->
+
     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#analyticsReports" aria-expanded="false" aria-controls="analyticsReports">
         <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
         Analytics & Reports
@@ -129,12 +163,12 @@ session_start();
         </nav>
     </div>
 
-    <!-- Settings -->
+
     <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#settings" aria-expanded="false" aria-controls="settings">
         <div class="sb-nav-link-icon"><i class="fas fa-cogs"></i></div>
         Settings
         <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-    </a>
+    </a> -->
     <div class="collapse" id="settings" data-bs-parent="#sidenavAccordion">
         <nav class="sb-sidenav-menu-nested nav">
             <a class="nav-link" href="site-configuration.html">Site Configuration</a>

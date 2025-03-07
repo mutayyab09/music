@@ -1,5 +1,6 @@
-<?php include("../includes/header.php"); 
-// Include config file
+<?php 
+ob_start(); // Start output buffering
+include("../includes/header.php"); 
 include("../.././config.php");
 
 // Define variables and initialize with empty values
@@ -82,10 +83,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    // Check input errors before inserting in database
+    // Check input errors before inserting into database
     if (empty($username_err) && empty($email_err) && empty($password_err) && empty($confirm_password_err)) {
         
-        // Prepare an insert statement with email
+        // Prepare an insert statement
         $sql = "INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
@@ -99,9 +100,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
-                // Redirect to login page
-                header("location: ../.././index.php");
-                exit();
+                // Check if headers are already sent
+                if (!headers_sent()) {
+                    header("Location: ./admin.php");
+                    exit();
+                } else {
+                    echo "Redirection failed. Please click <a href='./admin.php'>here</a>.";
+                }
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
             }
@@ -113,116 +118,100 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Close connection
     mysqli_close($link);
 }
+ob_end_flush(); // End output buffering
 ?>
 
 <style>
     div#layoutSidenav_content {
-    display: flex;
-    justify-content: center !important;
-}
-    div.container-fluid.px-4 {
-    max-width: 500px;
-    width: 100%;
-    padding: 2rem;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-    .form-group {
-    margin-bottom: 20px;
-}
-
-.form-group label {
-    display: block;
-    margin-bottom: 8px;
-    color: #555;
-    font-weight: 600;
-}
-
-.form-control {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease;
-}
-
-.form-control:focus {
-    border-color: #007bff;
-    outline: none;
-}
-
-.invalid-feedback {
-    color: #e74c3c;
-    font-size: 14px;
-    margin-top: 5px;
-}
-
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    background: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.btn-primary:hover {
-    background: #0056b3;
-}
-
-@media (max-width: 768px) {
-    .form-group {
-        margin-bottom: 15px;
+        display: flex;
+        justify-content: center !important;
     }
-}
+    div.container-fluid.px-4 {
+        max-width: 500px;
+        width: 100%;
+        padding: 2rem;
+        background: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    .form-group {
+        margin-bottom: 20px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: #555;
+        font-weight: 600;
+    }
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+    .invalid-feedback {
+        color: #e74c3c;
+        font-size: 14px;
+        margin-top: 5px;
+    }
+    .btn-primary {
+        width: 100%;
+        padding: 10px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 18px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+    .btn-primary:hover {
+        background: #0056b3;
+    }
+    @media (max-width: 768px) {
+        .form-group {
+            margin-bottom: 15px;
+        }
+    }
 </style>
 
- <div id="layoutSidenav">
-    <?php include("../includes/sidebar.php"); ?> <!-- Sidebar Include -->
-
+<div id="layoutSidenav">
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-   
-        <h2>Create Admin</h2>
-     
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div> 
-            <div class="form-group">
-    <label>Email</label>
-    <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
-    <span class="invalid-feedback"><?php echo $email_err; ?></span>
-</div>   
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $password; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $confirm_password; ?>">
-                <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-                <!-- <input type="reset" class="btn btn-secondary ml-2" value="Reset"> -->
-            </div>
-       
-        </form>
-    </div>  
-               
-            
+                <h2>Create Admin</h2>
+                <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <div class="form-group">
+                        <label>Username</label>
+                        <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
+                        <span class="invalid-feedback"><?php echo $username_err; ?></span>
+                    </div> 
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" name="email" class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $email; ?>">
+                        <span class="invalid-feedback"><?php echo $email_err; ?></span>
+                    </div>   
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
+                        <span class="invalid-feedback"><?php echo $password_err; ?></span>
+                    </div>
+                    <div class="form-group">
+                        <label>Confirm Password</label>
+                        <input type="password" name="confirm_password" class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>">
+                        <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                    </div>
+                </form>
+            </div>  
         </main>
-
     </div>
 </div>

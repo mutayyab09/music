@@ -67,10 +67,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                         
                             switch ($_SESSION["role"]) {
                                 case 0:
-                                    header("location: ./dashboard/administator/index.php");
-                                    break;
                                 case 1:
-                                    header("location: ./dashboard/admin/index.php");
+                                    header("location: ./dashboard/administator/index.php");
                                     break;
                                 case 2:
                                     header("location: ./dashboard/artist/index.php");
@@ -78,6 +76,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 default:
                                     die("Invalid role detected.");
                             }
+                            exit;
 
                         } else{
                             // Password is not valid, display a generic error message
@@ -174,7 +173,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <input type="submit" class="btn btn-primary" value="Login">
             </div>
             <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-            <p>Admin? <a href="./dashboard/admin/register.php">Register here</a></p>
         </form>
     </div>
 </body>
