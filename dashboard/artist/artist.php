@@ -87,7 +87,7 @@ div.dt-length {
        <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4">
-                <div class="container mt-5">
+                <div class="mt-5">
                    <h2>Welcome Artist</h2>
                         <div class="card mb-4">
                             <div class="card-body">
@@ -116,7 +116,12 @@ div.dt-length {
                     <td><?= htmlspecialchars($track['track_name']) ?></td>
                     <td><?= htmlspecialchars($track['album_art']) ?></td>
                     <td><img src="<?= htmlspecialchars($track['album_cover']) ?>" alt="Album Cover" width="100"></td>
-                    <td><?= htmlspecialchars($track['tracklink']) ?></td>
+                    <td>
+    <audio controls>
+        <source src="<?= htmlspecialchars($track['tracklink']) ?>" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+</td>
                     <td><?= htmlspecialchars($track['genre']) ?></td>
                     <td><?= htmlspecialchars($track['release_date']) ?></td>
                     <td><?= htmlspecialchars($track['video_url']) ?></td>

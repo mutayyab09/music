@@ -75,7 +75,7 @@ div.dt-length {
        <div id="layoutSidenav_content">
         <main>
         <div class="container-fluid px-4">
-                <div class="container mt-5">
+                <div class="mt-5">
                     <h2>All Artist Tracks</h2>
                     <div class="container-fluid px-4"></div>
                     <div class="card mb-4">
@@ -85,8 +85,7 @@ div.dt-length {
                                     <tr>
                                         <th>Artist Name</th>
                                         <th>Track Name</th>
-                                        <th>Album Art</th>
-                                        <th>Album Cover</th>
+                                        <th>Track Art</th>
                                         <th>Track Link</th>
                                         <th>Genre</th>
                                         <th>Release Date</th>
@@ -94,7 +93,7 @@ div.dt-length {
                                         <th>Claim Type</th>
                                         <th>YouTube Channel</th>
                                         <th>MCN Status</th>
-                                        <th>Status</th>
+                                        <th>Update Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -102,12 +101,16 @@ div.dt-length {
                                     <tr>
                                         <td><?= htmlspecialchars($track['username']) ?></td>
                                         <td><?= htmlspecialchars($track['track_name']) ?></td>
-                                        <td><?= htmlspecialchars($track['album_art']) ?></td>
 <td>
-    <img src="../artist/uploads/covers/<?= htmlspecialchars($track['album_cover']) ?>" alt="Album Cover" width="100">
+    <img src="../artist/uploads/covers/<?= str_replace("uploads/covers", "", htmlspecialchars($track['album_cover'])) ?>" alt="Album Cover" width="100">
 </td>
 
-                                        <td><?= htmlspecialchars($track['tracklink']) ?></td>
+<td>
+    <audio controls>
+        <source src="<?= str_replace("uploads/covers", "",htmlspecialchars($track['tracklink'])) ?>" type="audio/mp3">
+        Your browser does not support the audio element.
+    </audio>
+</td>
                                         <td><?= htmlspecialchars($track['genre']) ?></td>
                                         <td><?= htmlspecialchars($track['release_date']) ?></td>
                                         <td><?= htmlspecialchars($track['video_url']) ?></td>

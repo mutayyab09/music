@@ -79,11 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         // ✅ Insert track with new fields
-        $sql = "INSERT INTO tracks (track_name, album_art, album_cover, tracklink, genre, release_date, video_url, claim_type, youtube_channel, mcn_status, user_id, created_at, updated_at, status, deleted_at) 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW(), 1, NULL)";
-        
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute([$track_name, $album_art, $album_cover, $tracklink, $genre, $release_date, $video_url, $claim_type, $youtube_channel, $mcn_status, $user_id]);
+        $sql = "INSERT INTO tracks (track_name, album_cover, tracklink, genre, release_date, video_url, claim_type, youtube_channel, mcn_status, user_id, status) 
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)"; // Removed NOW() and NULL for default values
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute([$track_name, $album_cover, $tracklink, $genre, $release_date, $video_url, $claim_type, $youtube_channel, $mcn_status, $user_id]);
 
         echo "<div class='alert alert-success alert-dismissible fade show' style='text-align: right; position: fixed; top: 70px; right: 10px; z-index: 1000; width: 300px;'>
         New track added successfully
@@ -134,18 +134,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <label for="track_name" class="form-label">Track Name</label>
                         <input type="text" class="form-control" id="track_name" name="track_name" required>
                     </div>
-
-                    <div class="mb-3">
-                        <label for="album_art" class="form-label">Album Art URL</label>
-                        <input type="text" class="form-control" id="album_art" name="album_art">
-                    </div>
-
                     <div class="mb-3">
                         <label for="track_file" class="form-label">Upload MP3 Track</label>
                         <input type="file" class="form-control" id="track_file" name="track_file" accept="audio/mp3" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="track_file" class="form-label">Upload Album Cover</label>
+                    <div>
+                        <label for="track_file" class="form-label">Upload Track Cover</label>
                         <input type="file" class="form-control" name="album_cover" accept="image/*" onchange="previewImage(event)">
                         <img id="imagePreview" src="#" alt="Album Cover Preview" style="display:none; width: 100px; height: 100px; margin-top: 10px;"><br>
     <script>

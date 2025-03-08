@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+error_reporting(E_ERROR | E_PARSE);
+
 ?>
 <!DOCTYPE html>
 
@@ -19,7 +22,7 @@ session_start();
     </head>
 
     <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark p-0">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3" href="index.php">
     <?php echo isset($_SESSION['admin_name']) ? $_SESSION['admin_name'] : 'Music Hub'; ?>
@@ -30,8 +33,13 @@ session_start();
         
             </form>
             <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4 h-100">
+                <!-- <li class="nav-item d-flex justify-content-center align-items-center text-white px-3">
+                    <a href="royalty.php" class="text-white">
+                        5000 ₹
+                    </a>
+                </li> -->
+                <li class="nav-item dropdown d-flex align-items-center">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                        <li><a class="dropdown-item" href="../../logout.php">Logout</a></li>
@@ -102,7 +110,13 @@ session_start();
         <div class="sb-nav-link-icon">
             <!-- <i class="fas fa-tachometer-alt"></i> -->
         </div>
-        All Tracks
+        My All Tracks
+    </a>
+    <a class="nav-link" href="../../dashboard/artist/royalty.php">
+        <div class="sb-nav-link-icon">
+            <!-- <i class="fas fa-tachometer-alt"></i> -->
+        </div>
+        My Royalties
     </a>
 <?php endif; ?>
 

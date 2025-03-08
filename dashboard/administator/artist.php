@@ -84,7 +84,7 @@ div.dt-length {
             
         <div class="container-fluid px-4">
                 <div class="container mt-5">
-                    <h2>Admins</h2>
+                    <h2>All Artists</h2>
                     <div class="container-fluid px-4"></div>
                     <div class="card mb-4">
                         <div class="card-body">
