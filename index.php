@@ -1,179 +1,493 @@
-<?php
-// Initialize the session
-session_start();
- 
-// Check if the user is already logged in, if yes then redirect him to welcome page
-if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
-    header("location: welcome.php");
-    exit;
-}
- 
-// Include config file
-require_once "config.php";
- 
-// Define variables and initialize with empty values
-$username = $password = "";
-$username_err = $password_err = $login_err = "";
- 
-// Processing form data when form is submitted
-if($_SERVER["REQUEST_METHOD"] == "POST"){
- 
-    // Check if username is empty
-    if(empty(trim($_POST["username"]))){
-        $username_err = "Please enter username.";
-    } else{
-        $username = trim($_POST["username"]);
-    }
-    
-    // Check if password is empty
-    if(empty(trim($_POST["password"]))){
-        $password_err = "Please enter your password.";
-    } else{
-        $password = trim($_POST["password"]);
-    }
-    
-    // Validate credentials
-    if(empty($username_err) && empty($password_err)){
-        // Prepare a select statement
-        $sql = "SELECT id, username,password,role FROM users WHERE username = ?";
-        
-        if($stmt = mysqli_prepare($link, $sql)){
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $param_username);
-            
-            // Set parameters
-            $param_username = $username;
-            
-            // Attempt to execute the prepared statement
-            if(mysqli_stmt_execute($stmt)){
-                // Store result
-                mysqli_stmt_store_result($stmt);
-                
-                // Check if username exists, if yes then verify password
-                if(mysqli_stmt_num_rows($stmt) == 1){                    
-                    // Bind result variables
-                    mysqli_stmt_bind_result($stmt, $id, $username, $hashed_password, $role);
-                    if(mysqli_stmt_fetch($stmt)){
-                        if(password_verify($password, $hashed_password)){
-                            // Password is correct, so start a new session
-                            session_start();
-                            
-                            // Store data in session variables
-                            $_SESSION["loggedin"] = true;
-                            $_SESSION["id"] = $id;
-                            $_SESSION["username"] = $username;                            
-                            $_SESSION["role"] = $role;
-                            
-                        
-                            switch ($_SESSION["role"]) {
-                                case 0:
-                                case 1:
-                                    header("location: ./dashboard/administator/index.php");
-                                    break;
-                                case 2:
-                                    header("location: ./dashboard/artist/index.php");
-                                    break;
-                                default:
-                                    die("Invalid role detected.");
-                            }
-                            exit;
+<?php include ("./includes/header.php"); ?>
 
-                        } else{
-                            // Password is not valid, display a generic error message
-                            $login_err = "Invalid username or password.";
-                        }
-                    }
-                } else{
-                    // Username doesn't exist, display a generic error message
-                    $login_err = "Invalid username or password.";
-                }
-            } else{
-                echo "Oops! Something went wrong. Please try again later.";
-            }
+    <!-- Header Section End -->
 
-            // Close statement
-            mysqli_stmt_close($stmt);
-        }
-    }
-    
-    // Close connection
-    mysqli_close($link);
-}
-?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body{ font: 14px sans-serif; }
-        .wrapper{ width: 360px; padding: 20px; }
-        body.login-body {
-            background: #f8f9fa;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-        }
-
-        .login-wrapper {
-            max-width: 500px;
-            width: 100%;
-            padding: 2rem;
-            background: #ffffff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .login-wrapper h2 {
-            text-align: center;
-            margin-bottom: 1rem;
-        }
-
-        .login-wrapper .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .login-wrapper .btn-primary {
-            width: 100%;
-        }
-
-        .login-wrapper p {
-            text-align: center;
-            margin-top: 1rem;
-        }
-    </style>
-</head>
-<body class="login-body">
-    <div class="login-wrapper">
-        <h2>Music Hub Login</h2>
-        <p>Please fill in your credentials to login.</p>
-
-        <?php 
-        if(!empty($login_err)){
-            echo '<div class="alert alert-danger">' . $login_err . '</div>';
-        }        
-        ?>
-
-        <form action="#" method="post">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
-                <span class="invalid-feedback"><?php echo $username_err; ?></span>
-            </div>    
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
-                <span class="invalid-feedback"><?php echo $password_err; ?></span>
+    <!-- Hero Section Begin -->
+    <section class="hero spad set-bg" data-setbg="./assets/img/hero-bg.png">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="hero__text">
+                        <span>New single</span>
+                        <h1>Feel the heart beats</h1>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod <br />tempor
+                            incididunt ut labore et dolore magna aliqua.</p>
+                        <a href="https://www.youtube.com/watch?v=K4DyBUG242c" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Login">
+        </div>
+        <div class="linear__icon">
+            <i class="fa fa-angle-double-down"></i>
+        </div>
+    </section>
+    <!-- Hero Section End -->
+
+    <!-- Event Section Begin -->
+    <section class="event spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Upcoming Events</h2>
+                    </div>
+                </div>
             </div>
-            <p>Don't have an account? <a href="register.php">Sign up now</a>.</p>
-        </form>
-    </div>
-</body>
-</html>
+            <div class="row">
+                <div class="event__slider owl-carousel">
+                    <div class="col-lg-4">
+                        <div class="event__item">
+                            <div class="event__item__pic set-bg" data-setbg="./assets/img/events/event-1.jpg">
+                                <div class="tag-date">
+                                    <span>Dec 15, 2019</span>
+                                </div>
+                            </div>
+                            <div class="event__item__text">
+                                <h4>David Guetta Miami Ultra</h4>
+                                <p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="event__item">
+                            <div class="event__item__pic set-bg" data-setbg="./assets/img/events/event-2.jpg">
+                                <div class="tag-date">
+                                    <span>Dec 15, 2019</span>
+                                </div>
+                            </div>
+                            <div class="event__item__text">
+                                <h4>David Guetta Miami Ultra</h4>
+                                <p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="event__item">
+                            <div class="event__item__pic set-bg" data-setbg="./assets/img/events/event-3.jpg">
+                                <div class="tag-date">
+                                    <span>Dec 15, 2019</span>
+                                </div>
+                            </div>
+                            <div class="event__item__text">
+                                <h4>David Guetta Miami Ultra</h4>
+                                <p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="event__item">
+                            <div class="event__item__pic set-bg" data-setbg="./assets/img/events/event-2.jpg">
+                                <div class="tag-date">
+                                    <span>Dec 15, 2019</span>
+                                </div>
+                            </div>
+                            <div class="event__item__text">
+                                <h4>David Guetta Miami Ultra</h4>
+                                <p><i class="fa fa-map-marker"></i> Funkhaus Berlin, Berlin, Germany</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Event Section End -->
+
+    <!-- About Section Begin -->
+    <section class="about spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="about__pic">
+                        <img src="./assets/img/about/about.png" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="about__text">
+                        <div class="section-title">
+                            <h2>DJ Alexandra Rud</h2>
+                            <h1>About me</h1>
+                        </div>
+                        <p>DJ Rainflow knows how to move your mind, body and soul by delivering tracks that stand out
+                            from the norm. As if this impressive succession of high impact, floor-filling bombs wasn’t
+                            enough to sustain.</p>
+                        <a href="#" class="primary-btn">CONTACT ME</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About Section End -->
+
+    <!-- Services Section Begin -->
+    <section class="services">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6 p-0">
+                    <div class="services__left set-bg" data-setbg="./assets/img/services/service-left.jpg">
+                        <a href="https://www.youtube.com/watch?v=JGwWNGJdvx8" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 p-0">
+                    <div class="row services__list">
+                        <div class="col-lg-6 p-0 order-lg-1 col-md-6 order-md-1">
+                            <div class="service__item deep-bg">
+                                <img src="./assets/img/services/service-1.png" alt="">
+                                <h4>Wedding</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0 order-lg-2 col-md-6 order-md-2">
+                            <div class="service__item">
+                                <img src="./assets/img/services/service-2.png" alt="">
+                                <h4>Clubs and bar</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0 order-lg-4 col-md-6 order-md-4">
+                            <div class="service__item deep-bg">
+                                <img src="./assets/img/services/service-4.png" alt="">
+                                <h4>DJ lessons</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                            </div>
+                        </div>
+                        <div class="col-lg-6 p-0 order-lg-3 col-md-6 order-md-3">
+                            <div class="service__item">
+                                <img src="./assets/img/services/service-3.png" alt="">
+                                <h4>Corporate events</h4>
+                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section End -->
+
+    <!-- Track Section Begin -->
+    <section class="track spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7">
+                    <div class="section-title">
+                        <h2>Latest tracks</h2>
+                        <h1>Music podcast</h1>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="track__all">
+                        <a href="#" class="primary-btn border-btn">View all tracks</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-7 p-0">
+                    <div class="track__content nice-scroll">
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_1"
+                                data-url="./assets/music-files/1.mp3"></div>
+                            <div class="jp-audio jp_container_1" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_2"
+                                data-url="./assets/music-files/2.mp3"></div>
+                            <div class="jp-audio jp_container_2" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_3"
+                                data-url="./assets/music-files/3.mp3"></div>
+                            <div class="jp-audio jp_container_3" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_4"
+                                data-url="./assets/music-files/4.mp3"></div>
+                            <div class="jp-audio jp_container_4" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_5"
+                                data-url="./assets/music-files/5.mp3"></div>
+                            <div class="jp-audio jp_container_5" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="single_player_container">
+                            <h4>David Guetta Miami Ultra</h4>
+                            <div class="jp-jplayer jplayer" data-ancestor=".jp_container_6"
+                                data-url="./assets/music-files/6.mp3"></div>
+                            <div class="jp-audio jp_container_6" role="application" aria-label="media player">
+                                <div class="jp-gui jp-interface">
+                                    <!-- Player Controls -->
+                                    <div class="player_controls_box">
+                                        <button class="jp-play player_button" tabindex="0"></button>
+                                    </div>
+                                    <!-- Progress Bar -->
+                                    <div class="player_bars">
+                                        <div class="jp-progress">
+                                            <div class="jp-seek-bar">
+                                                <div>
+                                                    <div class="jp-play-bar">
+                                                        <div class="jp-current-time" role="timer" aria-label="time">0:00
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="jp-duration ml-auto" role="timer" aria-label="duration">00:00</div>
+                                    </div>
+                                    <!-- Volume Controls -->
+                                    <div class="jp-volume-controls">
+                                        <button class="jp-mute" tabindex="0"><i
+                                                class="fa fa-volume-down"></i></button>
+                                        <div class="jp-volume-bar">
+                                            <div class="jp-volume-bar-value" style="width: 0%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-5 p-0">
+                    <div class="track__pic">
+                        <img src="./assets/img/track-right.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Track Section End -->
+
+    <!-- Youtube Section Begin -->
+    <section class="youtube spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Youtube feed</h2>
+                        <h1>Latest videos</h1>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="youtube__item">
+                        <div class="youtube__item__pic set-bg" data-setbg="./assets/img/youtube/youtube-1.jpg">
+                            <a href="https://www.youtube.com/watch?v=yJg-Y5byMMw?autoplay=1" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                        </div>
+                        <div class="youtube__item__text">
+                            <h4>David Guetta Miami Ultra Music Festival 2019</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="youtube__item">
+                        <div class="youtube__item__pic set-bg" data-setbg="./assets/img/youtube/youtube-2.jpg">
+                            <a href="https://www.youtube.com/watch?v=K4DyBUG242c?autoplay=1" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                        </div>
+                        <div class="youtube__item__text">
+                            <h4>Martin Garrix (Full live-set) | SLAM!Koningsdag</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 col-sm-6">
+                    <div class="youtube__item">
+                        <div class="youtube__item__pic set-bg" data-setbg="./assets/img/youtube/youtube-3.jpg">
+                            <a href="https://www.youtube.com/watch?v=S19UcWdOA-I?autoplay=1" class="play-btn video-popup"><i class="fa fa-play"></i></a>
+                        </div>
+                        <div class="youtube__item__text">
+                            <h4>Dimitri Vegas, Steve Aoki & Like Mike’s “3 Are Legend”</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Youtube Section End -->
+
+    <!-- Countdown Section Begin -->
+    <section class="countdown spad set-bg" data-setbg="./assets/img/countdown-bg.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="countdown__text">
+                        <h1>Tomorrowland 2020</h1>
+                        <h4>Music festival start in</h4>
+                    </div>
+                    <div class="countdown__timer" id="countdown-time">
+                        <div class="countdown__item">
+                            <span>20</span>
+                            <p>days</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>45</span>
+                            <p>hours</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>18</span>
+                            <p>minutes</p>
+                        </div>
+                        <div class="countdown__item">
+                            <span>09</span>
+                            <p>seconds</p>
+                        </div>
+                    </div>
+                    <div class="buy__tickets">
+                        <a href="#" class="primary-btn">Buy tickets</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Countdown Section End -->
+
+   
+<?php include ("./includes/footer.php"); ?>
