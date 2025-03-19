@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Redirect to login page
-                header("location: ./index.php");
+                header("location: ./login.php");
                 exit();
             } else {
                 echo "Oops! Something went wrong. Please try again later.";
@@ -122,9 +122,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Sign Up</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <link rel="stylesheet" href="./assets/css/bootstrap.min.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/font-awesome.min.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/barfiller.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/nowfont.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/rockville.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/magnific-popup.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/owl.carousel.min.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/slicknav.min.css" type="text/css">
+<link rel="stylesheet" href="./assets/css/style.css" type="text/css">
     <style>
-    body {
+    /* body {
         font: 14px sans-serif;
     }
 
@@ -167,49 +176,61 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     .signup-wrapper p {
         text-align: center;
         margin-top: 1rem;
-    }
+    } */
     </style>
 </head>
 
 <body class="signup-body">
-    <div class="signup-wrapper">
-        <h2>Sign Up</h2>
-        <p>Please fill this form to create an account.</p>
+    <section class="tours spad">
+    <div class="container">
+        <div class="row">
+        <div class="col-lg-6 order-lg-1">
+                    <div class="tours__item__text">
+                    <h2>Music Hub Sign Up</h2>
+        <p>Create An Account</p>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
             <div class="form-group">
                 <label>Username</label>
                 <input type="text" name="username"
-                    class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
+                    class="form-control border-1 border-bottom rounded-0  <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $username; ?>">
                 <span class="invalid-feedback"><?php echo $username_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Email</label>
                 <input type="email" name="email"
-                    class="form-control <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
+                    class="form-control border-1 border-bottom rounded-0  <?php echo (!empty($email_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $email; ?>">
                 <span class="invalid-feedback"><?php echo $email_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Password</label>
                 <input type="password" name="password"
-                    class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
+                    class="form-control border-1 border-bottom rounded-0  <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $password; ?>">
                 <span class="invalid-feedback"><?php echo $password_err; ?></span>
             </div>
             <div class="form-group">
                 <label>Confirm Password</label>
                 <input type="password" name="confirm_password"
-                    class="form-control <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
+                    class="form-control border-1 border-bottom rounded-0  <?php echo (!empty($confirm_password_err)) ? 'is-invalid' : ''; ?>"
                     value="<?php echo $confirm_password; ?>">
                 <span class="invalid-feedback"><?php echo $confirm_password_err; ?></span>
             </div>
             <div class="form-group">
-                <input type="submit" class="btn btn-primary" value="Submit">
-            </div>
-            <p>Already have an account? <a href="index.php">Login here</a>.</p>
-        </form>
+                <input type="submit" class="primary-btn border-btn"" value="Register">            </div>
+        </form></div>
+                </div>
+                <div class="col-lg-6 order-lg-2">
+                    <div class="tours__item__pic mt-3">
+                        <img src="./assets/img/tours/tour-1.jpg" alt="">
+                    </div>
+                </div>
+   
     </div>
+    </section>
+   
+ 
 </body>
 
 </html>
