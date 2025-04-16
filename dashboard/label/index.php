@@ -5,7 +5,7 @@
 <script src="//cdn.datatables.net/2.2.2/js/dataTables.min.js"></script>
 
 <?php
-include("../.././config.php");
+include("../../config.php");
 try {
     // ✅ Fetch only tracks where status = 2
     $stmt = $pdo->query("SELECT * FROM tracks WHERE status = 1 ORDER BY created_at DESC");
@@ -80,52 +80,6 @@ div.dt-length {
             <div class="container-fluid px-4">
                
 
-                <div class="container mt-5">
-        <h2>Welcome Administator</h2>
-        <!-- <div class="container-fluid px-4">
-                        
-                        </div>
-                        <div class="card mb-4">
-                        
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>Track Name</th>
-                                            <th>Album Art</th>
-                                            <th>Track Link</th>
-                                            <th>Genre</th>
-                                            <th>Release Date</th>
-                                            <th>User_id</th>
-                                            <th>Status</th>
-                                        </tr>
-                                    </thead>
-                                  
-                                    <tbody>
-                                    <?php foreach ($tracks as $track) : ?>
-                <tr>
-                
-                    <td><?= htmlspecialchars($track['track_name']) ?></td>
-                    <td><?= htmlspecialchars($track['album_art']) ?></td>
-                    <td><?= htmlspecialchars($track['tracklink']) ?></td>
-                    <td><?= htmlspecialchars($track['genre']) ?></td>
-                    <td><?= htmlspecialchars($track['release_date']) ?></td>
-                    <td><?= htmlspecialchars($track['user_id']) ?></td>
-                    <td><?= htmlspecialchars($track['status']) ?></td>
-                  
-                </tr>
-            <?php endforeach; ?>
-                                        </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-    </div> -->
-               
-            </div>
-        </main>
-
-    </div>
 </div>
 <script>
     let table = new DataTable('#datatablesSimple');

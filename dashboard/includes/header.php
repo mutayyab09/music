@@ -1,5 +1,7 @@
 <?php
 session_start();
+define('BASE_URL', 'http://localhost/music/');
+
 ?>
 <!DOCTYPE html>
 
@@ -13,12 +15,18 @@ session_start();
     <meta name="author" content="" />
     <title>Music Hub</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link href="../assets/css/styles.css" rel="stylesheet" />
-    <link href="../assets/css/custom.css" rel="stylesheet" />
+    <link href="<?php echo BASE_URL; ?>dashboard/assets/css/styles.css" rel="stylesheet">
+    <link href="<?php echo BASE_URL; ?>dashboard/assets/css/custom.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.min.css">
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 
 </head>
+<style>
+.btn:hover {
+    color: black !important;
+}
+</style>
 
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
@@ -38,19 +46,19 @@ session_start();
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                     aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="../../logout.php">Logout</a></li>
+                    <li><a class="dropdown-item" href="./../../logout.php">Logout</a></li>
                 </ul>
             </li>
         </ul>
     </nav>
     <div id="layoutSidenav">
         <div id="layoutSidenav_nav">
-        <?php 
+            <?php 
   $role = $_SESSION["role"] ?? null; 
   ?>
-  
-  <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion" 
-      style="display: <?= ($role == 2) ? 'none' : 'block'; ?>;">
+
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion"
+                style="display: <?= ($role == 2) ? 'none' : 'block'; ?>;">
 
 
 
@@ -88,6 +96,18 @@ session_start();
                             </div>
                             Declined Tracks
                         </a>
+                                      <a class="nav-link collapsed" href="" data-bs-toggle="collapse" data-bs-target="#tracksManagement" aria-expanded="false" aria-controls="tracksManagement">
+        <div class="sb-nav-link-icon"><i class="fas fa-music"></i></div>
+       Label
+        <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+    </a>
+    <div class="collapse" id="tracksManagement" data-bs-parent="#sidenavAccordion">
+        <nav class="sb-sidenav-menu-nested nav">
+            <a class="nav-link" href="release.php">Music Release</a>
+            <a class="nav-link" href="approved-tracks.html">Approved Tracks</a>
+            <a class="nav-link" href="rejected-tracks.html">Rejected Tracks</a>
+        </nav>
+    </div>
                         <?php endif; ?>
 
 
@@ -105,9 +125,69 @@ session_start();
                         </a>
                         <a class="nav-link" href="../../dashboard/artist/artist.php">
                             <div class="sb-nav-link-icon">
-                           </div>
+                            </div>
                             All Tracks
                         </a>
+                        <?php endif; ?>
+                        <?php if(isset($_SESSION["role"]) && $_SESSION["role"] == 3): ?>
+                        <a class="btn bg-white border-1 w-75 ms-4"
+                            href="<?= BASE_URL ?>dashboard/label/music/create.php">Create</a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/music/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Release Music
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/video/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Release Video
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/caller-tone/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Caller Tune
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/service/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Service Request
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/service/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Bajao Request Radio
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/label/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Labels
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/artist/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            My Artists
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/legal/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Legal
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/channel/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Vevo Channel
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/youtube/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Connect Youtube
+                        </a>
+
+                        <a class="nav-link" href="<?= BASE_URL ?>dashboard/label/support/index.php">
+                            <div class="sb-nav-link-icon"></div>
+                            Support
+                        </a>
+
                         <?php endif; ?>
 
 
@@ -182,7 +262,7 @@ session_start();
                     </div>
 
                 </div>
-        
+
             </nav>
         </div>
 

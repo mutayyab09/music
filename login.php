@@ -73,6 +73,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                                 case 2:
                                     header("location: ./dashboard/artist/index.php");
                                     break;
+                                case 3:
+                                    header("location: ./dashboard/label/index.php");
+                                    break;
                                 default:
                                     die("Invalid role detected.");
                             }

@@ -524,8 +524,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         let dataURL = canvas.toDataURL("image/png");
         document.getElementById("signature_input").value = dataURL;
     }
-    </script>
-<script>
+  
 document.addEventListener("DOMContentLoaded", function () {
     const nextButtons = document.querySelectorAll(".next");
 
@@ -564,11 +563,11 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-</script>
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
-<script>
+
+
 var input = document.querySelector("#phone");
 window.intlTelInput(input, {
     initialCountry: "auto",
